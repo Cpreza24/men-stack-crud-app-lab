@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const methodOverride = require('method-override');
 const app = express();
 const Team = require('./models/teams');
+const teams = require('./data/teams');
 
 require('./configs/database');
 
@@ -23,12 +24,15 @@ app.set('views', './views');
 
 // ROUTES
 app.get('/', (req, res) => {
-    const teams = Team.find({});
-    console.log(teams);
-    // res.render('./home/index');
+    res.render('./home/index');
 });
 
-app.get('/new', (req, res) => {
+app.get('/teams', (req, res) => {
+    //res.json(teams);
+    res.render('./teams/index', { teams: teams });
+});
+
+app.get('/teams/new', (req, res) => {
     res.render('./teams/new');
 });
 
