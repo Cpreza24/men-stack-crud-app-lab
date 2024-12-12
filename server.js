@@ -36,6 +36,16 @@ app.get('/teams/new', (req, res) => {
     res.render('./teams/new');
 });
 
+app.post('/seed', async (req, res) => {
+    try {
+        await Team.insertMany(teams);
+        res.status(201).send('Teams seeded successfully');
+    } catch (error) {
+        console.error(error.message);
+        res.status(404).send('Error seeding teams');
+    }
+});
+
 app.listen(process.env.PORT, () => {
     console.log(`Server running on http://localhost:${process.env.PORT}`);
 });
