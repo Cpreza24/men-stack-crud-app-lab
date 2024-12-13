@@ -13,7 +13,7 @@ require('./configs/database');
 //    MIDDLEWARE
 // ********************
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
@@ -34,6 +34,23 @@ app.get('/teams', (req, res) => {
 
 app.get('/teams/new', (req, res) => {
     res.render('./teams/new');
+});
+
+app.post('/teams', async (req, res) => {
+    // const {
+    //     name = 'new team',
+    //     division = 'division',
+    //     founded = 'year founded',
+    // } = req.body;
+
+    const newTeam = new Team({
+        name: req.body.name,
+        division: req.body.division,
+        founded: req.body.founded,
+    });
+    await Team.create(req.body);
+    console.log(teams);
+    res.status(201).redirect('/teams');
 });
 
 app.post('/seed', async (req, res) => {
