@@ -9,9 +9,9 @@
         <h1>New Team</h1>
         <form action="/teams" method="POST">
             <label for="name">Name</label>
-            <input type="text" id="name" required />
+            <input type="text" name="name" id="name" required />
             <label for="division">Division</label>
-            <select id="division" required>
+            <select name="division" id="division" required>
                 <option value="AFC East">AFC East</option>
                 <option value="AFC North">AFC North</option>
                 <option value="AFC South">AFC South</option>
@@ -22,7 +22,7 @@
                 <option value="NFC West">NFC West</option>
             </select>
             <label for="founded">Founded</label>
-            <input type="text" id="founded" required />
+            <input type="text" name="founded" id="founded" required />
             <button type="submit">Submit</button>
         </form>
     </body>
