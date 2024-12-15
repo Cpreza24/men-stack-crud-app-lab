@@ -68,7 +68,36 @@ app.get('/teams/:id', async (req, res) => {
     }
 });
 
-app.put('/teams/:id', (req, res) => {});
+app.get('/teams/:id/edit', async (req, res) => {
+    const team = await Team.findById(req.params.id);
+    if (team) {
+        res.render('teams/edit', { title: 'edit Team', team });
+    } else {
+        res.status(404).render('404/notFound', {
+            title: 'Team not found',
+        });
+    }
+});
+
+app.put('/teams/:id', async (req, res) => {
+    const { id } = req.params;
+    const updatedTeam = await Team.findByIdAndUpdate(id, req.body);
+    if (updatedTeam) {
+        res.status(200).redirect('/teams');
+    } else {
+        res.status(404).send('team not found');
+    }
+});
+
+app.delete('/teams/:id', async (req, res) => {
+    const { id } = req.params;
+    const deleteTeam = await Team.findByIdAndDelete(id);
+    if (deleteTeam) {
+        res.status(200).redirect('/teams');
+    } else {
+        res.status(404).render('404/notFound', { title: 'team not found' });
+    }
+});
 
 app.post('/seed', async (req, res) => {
     try {

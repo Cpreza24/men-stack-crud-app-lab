@@ -7,7 +7,21 @@
     </head>
     <body>
         <div class="container">
-            <p><%= team.name %> - <%= team.division %> - <%= team.founded %></p>
+            <div class="content">
+                <p>
+                    <%= team.name %> - <%= team.division %> - <%= team.founded
+                    %>
+                </p>
+            </div>
+            <div class="action">
+                <a href="/teams/<%= team.id %>/edit">Edit</a>
+                <form
+                    action="/teams/<%= team.id %>?_method=DELETE"
+                    method="POST"
+                >
+                    <button type="submit">Delete Team</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>
