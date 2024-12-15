@@ -6,7 +6,6 @@ const methodOverride = require('method-override');
 const app = express();
 const Team = require('./models/teams');
 const teams = require('./data/teams');
-const mongoose = require('mongoose');
 
 require('./configs/database');
 
@@ -50,10 +49,26 @@ app.post('/teams', async (req, res) => {
     });
     await newTeam.save();
     teams.push(newTeam);
-    console.log(teams);
-    console.log(req.body);
     res.status(201).redirect('/teams');
 });
+
+app.get('/teams/:id', async (req, res) => {
+    try {
+        const team = await Team.findById(req.params.id);
+        if (team) {
+            res.render('teams/show', { title: 'team details', team });
+        } else {
+            console.error(error.message);
+            res.status(404).render('404/notFound', {
+                title: 'Team not found',
+            });
+        }
+    } catch (error) {
+        res.status(500).send('internal server error');
+    }
+});
+
+app.put('/teams/:id', (req, res) => {});
 
 app.post('/seed', async (req, res) => {
     try {
