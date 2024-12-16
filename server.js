@@ -26,9 +26,12 @@ app.get('/', (req, res) => {
     res.render('./home/index');
 });
 
-app.get('/teams', (req, res) => {
+app.get('/teams', async (req, res) => {
     //res.json(teams);
-    res.render('./teams/index', { teams: teams });
+    try {
+        const teamsDb = await Team.find({});
+        res.render('./teams/index', { teams: teamsDb });
+    } catch (error) {}
 });
 
 app.get('/teams/new', (req, res) => {
