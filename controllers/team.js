@@ -15,23 +15,6 @@ function newTeam(req, res) {
     res.render('teams/new', { title: 'New Team' });
 }
 
-// app.post('/teams', async (req, res) => {
-//     const {
-//         name = 'new team',
-//         division = 'division',
-//         founded = 'founded',
-//     } = req.body;
-
-//     const newTeam = new Team({
-//         name: name,
-//         division: division,
-//         founded: founded,
-//     });
-//     await newTeam.save();
-//     teams.push(newTeam);
-//     res.status(201).redirect('/teams');
-// });
-
 async function postTeam(req, res) {
     try {
         const {
